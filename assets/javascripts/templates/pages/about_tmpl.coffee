@@ -30,7 +30,6 @@ app.templates.aboutPage = -> """
 
   <h2 class="_block-heading" id="plugins">Plugins and Extensions</h2>
   <ul>
-    <li><a href="https://github.com/egoist/devdocs-app">Desktop app</a>
     <li><a href="https://sublime.wbond.net/packages/DevDocs">Sublime Text package</a>
     <li><a href="https://atom.io/packages/devdocs">Atom package</a>
     <li><a href="https://marketplace.visualstudio.com/items?itemName=deibit.devdocs">Visual Studio Code extension</a>
@@ -102,10 +101,20 @@ credits = [
     'Apache',
     'https://www.apache.org/licenses/LICENSE-2.0'
   ], [
+    'Astro',
+    '2022 withastro',
+    'MIT',
+    'https://github.com/withastro/docs/blob/main/LICENSE'
+  ], [
     'Async',
     '2010-2018 Caolan McMahon',
     'MIT',
     'https://raw.githubusercontent.com/caolan/async/master/LICENSE'
+  ], [
+    'Axios',
+    '2014-present Matt Zabriskie',
+    'MIT',
+    'https://raw.githubusercontent.com/axios/axios/main/LICENSE'
   ], [
     'Babel',
     '2014-present Sebastian McKenzie',
@@ -168,7 +177,7 @@ credits = [
     'https://github.com/clojure/clojure/blob/master/epl-v10.html'
   ], [
     'CMake',
-    '2000-2019 Kitware, Inc. and Contributors',
+    '2000-2022 Kitware, Inc. and Contributors',
     'BSD',
     'https://cmake.org/licensing/'
   ], [
@@ -232,6 +241,11 @@ credits = [
     'CC BY-SA',
     'https://creativecommons.org/licenses/by-sa/4.0/'
   ], [
+    'date-fns',
+    '2021 Sasha Koss and Lesha Koss',
+    'MIT',
+    'https://raw.githubusercontent.com/date-fns/date-fns/main/LICENSE.md'
+  ], [
     'Deno',
     '2018–2022 the Deno authors',
     'MIT',
@@ -273,7 +287,7 @@ credits = [
     'https://raw.githubusercontent.com/electron/electron/master/LICENSE'
   ], [
     'Elisp',
-    '1990-1996, 1998-2021 Free Software Foundation, Inc.',
+    '1990-1996, 1998-2022 Free Software Foundation, Inc.',
     'GPLv3',
     'https://www.gnu.org/licenses/gpl-3.0.html'
   ], [
@@ -316,6 +330,11 @@ credits = [
     '2019 by Falcon contributors',
     'Apache',
     'https://raw.githubusercontent.com/falconry/falcon/master/LICENSE'
+  ], [
+    'FastAPI',
+    '2018 Sebastián Ramírez',
+    'MIT',
+    'https://github.com/tiangolo/fastapi/blob/master/LICENSE'
   ], [
     'Fish',
     '2005–2009 Axel Liljencrantz, 2009–2022 fish-shell contributors',
@@ -383,7 +402,7 @@ credits = [
     'https://raw.githubusercontent.com/wycats/handlebars.js/master/LICENSE'
   ], [
     'HAProxy',
-    '2021 Willy Tarreau, HAProxy contributors',
+    '2022 Willy Tarreau, HAProxy contributors',
     'GPLv2',
     'https://raw.githubusercontent.com/haproxy/haproxy/master/LICENSE'
   ], [
@@ -463,7 +482,7 @@ credits = [
     'https://raw.githubusercontent.com/jsdoc3/jsdoc3.github.com/master/LICENSE'
   ], [
     'Julia',
-    '2009-2021 Jeff Bezanson, Stefan Karpinski, Viral B. Shah, and other contributors',
+    '2009-2022 Jeff Bezanson, Stefan Karpinski, Viral B. Shah, and other contributors',
     'MIT',
     'https://raw.githubusercontent.com/JuliaLang/julia/master/LICENSE.md'
   ], [
@@ -543,7 +562,7 @@ credits = [
     'https://daringfireball.net/projects/markdown/license'
   ], [
     'Matplotlib',
-    '2012-2021 Matplotlib Development Team. All rights reserved.',
+    '2012-2022 Matplotlib Development Team. All rights reserved.',
     'Custom',
     'https://raw.githubusercontent.com/matplotlib/matplotlib/master/LICENSE/LICENSE'
   ], [
@@ -567,7 +586,7 @@ credits = [
     'MIT',
     'https://modernizr.com/license/'
   ], [
-    'Moment.js',
+    'Moment.js<br>Moment.js Timezone',
     'JS Foundation and other contributors',
     'MIT',
     'https://raw.githubusercontent.com/moment/moment/master/LICENSE'
@@ -613,7 +632,7 @@ credits = [
     'https://raw.githubusercontent.com/npm/npm/master/LICENSE'
   ], [
     'NumPy',
-    '2005-2021 NumPy Developers',
+    '2005-2022 NumPy Developers',
     'BSD',
     'https://raw.githubusercontent.com/numpy/numpy/master/LICENSE.txt'
   ], [
@@ -767,6 +786,11 @@ credits = [
     'MIT',
     'https://raw.githubusercontent.com/reactjs/redux/master/LICENSE.md'
   ], [
+    'Requests',
+    '2011-2022 Kenneth Reitz and other contributors',
+    'Apache',
+    'https://raw.githubusercontent.com/psf/requests/main/LICENSE'
+  ], [
     'RequireJS',
     'jQuery Foundation and other contributors',
     'MIT',
@@ -802,10 +826,15 @@ credits = [
     'Apache',
     'https://raw.githubusercontent.com/saltstack/salt/develop/LICENSE'
   ], [
-    'Sass',
-    '2006-2020 Hampton Catlin, Nathan Weizenbaum, and Chris Eppstein',
+    'Sanctuary',
+    '2020 Sanctuary; 2016 Plaid Technologies, Inc.',
     'MIT',
-    'https://raw.githubusercontent.com/sass/sass/stable/MIT-LICENSE'
+    'https://raw.githubusercontent.com/sanctuary-js/sanctuary/master/LICENSE'
+  ], [
+    'Sass',
+    '2022 Google Inc.',
+    'MIT',
+    'https://raw.githubusercontent.com/sass/sass/main/LICENSE'
   ], [
     'Scala',
     '2002-2022 EPFL, with contributions from Lightbend',
@@ -851,6 +880,11 @@ credits = [
     '2009-2012 Statsmodels Developers<br>&copy; 2006-2008 Scipy Developers<br>&copy; 2006 Jonathan E. Taylor',
     'BSD',
     'https://raw.githubusercontent.com/statsmodels/statsmodels/master/LICENSE.txt'
+  ], [
+    'Svelte',
+    '2016–2022 Rich Harris and contributors',
+    'MIT',
+    'https://raw.githubusercontent.com/sveltejs/svelte/master/LICENSE.md'
   ], [
     'Symfony',
     '2004-2017 Fabien Potencier',
@@ -906,6 +940,11 @@ credits = [
     '2019–present, Yuxi (Evan) You and Vite contributors',
     'MIT',
     'https://github.com/vitejs/vite/blob/main/LICENSE'
+  ], [
+    'Vitest',
+    '2021-Present Anthony Fu<br>2021-Present Matias Capeletto<br>',
+    'MIT',
+    'https://github.com/vitest-dev/vitest/blob/main/LICENSE'
   ], [
     'Vue Router',
     '2013-present Evan You',

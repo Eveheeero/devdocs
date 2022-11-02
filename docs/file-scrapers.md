@@ -26,6 +26,18 @@ Or run the following commands in your terminal:
 curl https://storage.googleapis.com/dart-archive/channels/stable/release/$RELEASE/api-docs/dartdocs-gen-api-zip > dartApi.zip; \
 unzip dartApi.zip; mv gen-dartdocs docs/dart~$VERSION
 ```
+
+## date-fns
+
+```sh
+git clone https://github.com/date-fns/date-fns docs/date_fns
+cd docs/date_fns
+git checkout v2.29.2
+yarn install
+node scripts/build/docs.js
+ls tmp/docs.json
+```
+
 ## Django
 
 Go to https://docs.djangoproject.com/, select the version from the
@@ -164,6 +176,13 @@ Search 'Openjdk' in https://www.debian.org/distrib/packages, find the `openjdk-$
 download it, extract it with `dpkg -x $PACKAGE ./` and move `./usr/share/doc/openjdk-16-jre-headless/api/`
 to `path/to/devdocs/docs/openjdk~$VERSION`
 
+```
+curl http://ftp.at.debian.org/debian/pool/main/o/openjdk-19/openjdk-19-doc_19+36-2_all.deb &&
+tar xf openjdk-19-doc_19+36-2_all.deb
+tar xf data.tar.xz
+mv ./usr/share/doc/openjdk-19-jre-headless/api/ path/to/devdocs/docs/openjdk~$VERSION
+```
+
 If you use or have access to a Debian-based GNU/Linux distribution you can run the following command:
 ```sh
 apt download openjdk-$VERSION-doc
@@ -263,5 +282,5 @@ Download the docs from https://sqlite.org/download.html, unzip it, and rename
 it to `/path/to/devdocs/docs/sqlite`
 
 ```sh
-curl https://sqlite.org/2022/sqlite-doc-3380000.zip | bsdtar --extract --file - --directory=docs/sqlite/ --strip-components=1
+curl https://sqlite.org/2022/sqlite-doc-3390200.zip | bsdtar --extract --file - --directory=docs/sqlite/ --strip-components=1
 ```

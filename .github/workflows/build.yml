@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-20.04
     if: github.repository == 'freeCodeCamp/devdocs'
     steps:
-    - uses: actions/checkout@7884fcad6b5d53d10323aee724dc68d8b9096a2e # tag=v2.4.2
+    - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791 # tag=v2.5.0
     - name: Set up Ruby
-      uses: ruby/setup-ruby@6148f408d35df04b0189be5e64c1458377b8ae13 # tag=v1.114.0
+      uses: ruby/setup-ruby@ece82769428359c077b5a5eaff268902a303c101 # tag=v1.120.0
       with:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Run tests
