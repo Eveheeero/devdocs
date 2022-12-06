@@ -372,7 +372,7 @@ credits = [
     'https://creativecommons.org/licenses/by/3.0/'
   ], [
     'Godot',
-    '2014-2021 Juan Linietsky, Ariel Manzur, Godot Engine contributors',
+    '2014-2022 Juan Linietsky, Ariel Manzur, Godot Engine contributors',
     'MIT',
     'https://raw.githubusercontent.com/godotengine/godot/master/LICENSE.txt'
   ], [
@@ -644,7 +644,7 @@ credits = [
     'Octave',
     '1996–2022 The Octave Project Developers',
     'Octave',
-    'https://octave.org/doc/v7.1.0/'
+    'https://docs.octave.org/v7.2.0/'
   ], [
     'OpenJDK',
     '1993, 2022, Oracle and/or its affiliates. All rights reserved.<br>Licensed under the GNU General Public License, version 2, with the Classpath Exception.<br>Various third party code in OpenJDK is licensed under different licenses.<br>Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.',
@@ -847,7 +847,7 @@ credits = [
     'https://scikit-image.org/docs/dev/license.html'
   ], [
     'scikit-learn',
-    '2007-2020 The scikit-learn developers',
+    '2007-2022 The scikit-learn developers',
     'BSD',
     'https://raw.githubusercontent.com/scikit-learn/scikit-learn/master/COPYING'
   ], [
@@ -956,6 +956,11 @@ credits = [
     'MIT',
     'https://raw.githubusercontent.com/vuejs/vuejs.org/master/LICENSE'
   ], [
+    'Vueuse',
+    '2019-present Anthony Fu',
+    'MIT',
+    'https://raw.githubusercontent.com/vueuse/vueuse/main/LICENSE'
+  ], [
     'Vuex',
     '2015-present Evan You',
     'MIT',
@@ -992,7 +997,7 @@ credits = [
     'https://raw.githubusercontent.com/yiisoft/yii/master/LICENSE'
   ], [
     'Zig',
-    '2015–2021, Zig contributors',
+    '2015–2022, Zig contributors',
     'MIT',
     'https://raw.githubusercontent.com/ziglang/zig/master/LICENSE'
   ]
