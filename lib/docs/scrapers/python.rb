@@ -1,11 +1,17 @@
 module Docs
-  class Python < FileScraper
+  class Python < UrlScraper
     self.type = 'python'
     self.root_path = 'index.html'
     self.links = {
       home: 'https://www.python.org/',
       code: 'https://github.com/python/cpython'
     }
+
+    # bypass the clean_text filter as it removes empty span with ids
+    options[:clean_text] = false
+
+    # bypass sphinx modifying empty ids
+    options[:sphinx_keep_empty_ids] = true
 
     options[:skip_patterns] = [/whatsnew/]
     options[:skip] = %w(
@@ -17,19 +23,40 @@ module Docs
       library/sunau.html)
 
     options[:attribution] = <<-HTML
-      &copy; 2001&ndash;2023 Python Software Foundation<br>
+      &copy; 2001&ndash;2025 Python Software Foundation<br>
       Licensed under the PSF License.
     HTML
 
+    version '3.14' do
+      self.release = '3.14.3'
+      self.base_url = "https://docs.python.org/#{self.version}/"
+
+      html_filters.push 'python/entries_v3', 'sphinx/clean_html', 'python/clean_html'
+    end
+
+    version '3.13' do
+      self.release = '3.13.8'
+      self.base_url = "https://docs.python.org/#{self.version}/"
+
+      html_filters.push 'python/entries_v3', 'sphinx/clean_html', 'python/clean_html'
+    end
+
+    version '3.12' do
+      self.release = '3.12.9'
+      self.base_url = "https://docs.python.org/#{self.version}/"
+
+      html_filters.push 'python/entries_v3', 'sphinx/clean_html', 'python/clean_html'
+    end
+
     version '3.11' do
-      self.release = '3.11.1'
+      self.release = '3.11.11'
       self.base_url = "https://docs.python.org/#{self.version}/"
 
       html_filters.push 'python/entries_v3', 'sphinx/clean_html', 'python/clean_html'
     end
 
     version '3.10' do
-      self.release = '3.10.9'
+      self.release = '3.10.13'
       self.base_url = "https://docs.python.org/#{self.version}/"
 
       html_filters.push 'python/entries_v3', 'sphinx/clean_html', 'python/clean_html'

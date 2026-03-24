@@ -1,7 +1,7 @@
 require_relative '../../../test_helper'
 require_relative '../../../../lib/docs'
 
-class ManifestTest < MiniTest::Spec
+class ManifestTest < Minitest::Spec
   let :doc do
     doc = Class.new Docs::Scraper
     doc.name = 'TestDoc'
@@ -64,7 +64,7 @@ class ManifestTest < MiniTest::Spec
       it "includes the doc's meta representation" do
         json = manifest.as_json
         assert_equal 1, json.length
-        assert_equal "{\"name\"=>\"Test\", \"db_size\"=>776533, :attribution=>\"foo\"}", json[0].to_s
+        assert_equal "{\"name\" => \"Test\", \"db_size\" => 776533, attribution: \"foo\", alias: nil}", json[0].to_s
       end
     end
 

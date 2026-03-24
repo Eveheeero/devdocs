@@ -4,9 +4,9 @@ module Docs
   class Rust
     class CleanHtmlFilter < Filter
       def call
-        if slug.start_with?('book') ||  slug.start_with?('reference')
+        if slug.start_with?('book') ||  slug.start_with?('reference') || slug.start_with?('error_codes')
           @doc = at_css('#content main')
-        elsif slug == 'error-index'
+        elsif slug.start_with?('error_codes')
           css('.error-undescribed').remove
 
           css('.error-described').each do |node|
@@ -16,12 +16,10 @@ module Docs
           @doc = at_css('#main, #main-content')
 
           css('.toggle-wrapper').remove
+          css('.anchor').remove
 
-          css('h1.fqn').each do |node|
-            node.content = node.at_css('.in-band').content
-          end
-
-          css('.main-heading > h1.fqn').each do |node|
+          css('.main-heading > h1').each do |node|
+            node.at('button')&.remove
             node.parent.name = 'h1'
             node.parent.content = node.content
           end
@@ -31,6 +29,10 @@ module Docs
             node.content = node.content
           end
         end
+
+        css('.doc-anchor').remove
+
+        css('.rule-link').remove
 
         # Fix notable trait sections
         css('.method, .rust.trait').each do |node|
@@ -53,6 +55,30 @@ module Docs
         css('details').each do |node|
           node.css('summary:contains("Expand description")').remove
           node.before(node.children).remove
+        end
+
+        css('button.grammar-toggle-railroad').remove
+        css('.grammar-container').each do |node|
+          next_element = node.next_element
+          if next_element && next_element['class'] && next_element['class'].include?('grammar-railroad')
+            next_element.remove
+            node.add_child(next_element)
+          end
+
+          node.css('[onclick="show_railroad()"]').each do |subnode|
+            subnode.remove_attribute('onclick')
+          end
+
+          # We changed this to a <pre> in parse(), changing it back here
+          node.name = 'div'
+          node.css('.grammar-literal').each do |literal|
+            literal.name = 'code'
+          end
+        end
+
+        css('.grammar-railroad').each do |node|
+          node.name = 'details'
+          node.prepend_child("<summary>Syntax diagram</summary>")
         end
 
         css('a.header').each do |node|
@@ -91,8 +117,12 @@ module Docs
         end
 
         css('pre').each do |node|
+          node.css('.where.fmt-newline').each do |node|
+            node.before("\n")
+          end
           node.content = node.content
           node['data-language'] = 'rust' if node['class'] && node['class'].include?('rust')
+          node['data-language'] = 'rust' if node.classes.include?('code-header')
         end
 
         doc.first_element_child.name = 'h1' if doc.first_element_child.name = 'h2'
@@ -105,6 +135,12 @@ module Docs
           end
           node.inner_html = node.inner_html.gsub('<br>', "\n")
           node.content = node.content
+        end
+
+        css('.rightside').each do |node|
+          node.children.each do |child|
+            child.remove if child.text?() and child.text() == " · "
+          end
         end
 
         css('.since + .srclink').each do |node|

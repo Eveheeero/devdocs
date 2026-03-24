@@ -1,18 +1,13 @@
 module Docs
   class Minitest < Rdoc
-    # Instructions:
-    #   1. Run "gem update rdoc hoe"
-    #   2. Download the source code at https://github.com/seattlerb/minitest
-    #   3. Run "rake docs" (in the Minitest directory)
-    #   4. Copy the "docs" directory to "docs/minitest"
 
     self.name = 'Ruby / Minitest'
     self.slug = 'minitest'
-    self.release = '5.17.0'
+    self.release = '6.0.1'
     self.links = {
+      home: 'https://minite.st',
       code: 'https://github.com/minitest/minitest'
     }
-    self.base_url = 'https://docs.seattlerb.org/minitest/'
 
     html_filters.replace 'rdoc/entries', 'minitest/entries'
 

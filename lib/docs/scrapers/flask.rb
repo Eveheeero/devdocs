@@ -14,9 +14,19 @@ module Docs
     options[:skip_patterns] = [/\Atutorial\//]
 
     options[:attribution] = <<-HTML
-      &copy; 2007&ndash;2022 Pallets<br>
+      &copy; 2010 Pallets<br>
       Licensed under the BSD 3-clause License.
     HTML
+
+    version do
+      self.release = '3.1.1'
+      self.base_url = "https://flask.palletsprojects.com/en/stable/"
+    end
+
+    version '3.0' do
+      self.release = '3.0.x'
+      self.base_url = "https://flask.palletsprojects.com/en/#{self.release}/"
+    end
 
     version '2.3' do
       self.release = '2.3.x'

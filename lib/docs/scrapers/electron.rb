@@ -26,8 +26,7 @@ module Docs
     HTML
 
     def get_latest_version(opts)
-      doc = fetch_doc('https://www.electronjs.org/releases/stable', opts)
-      doc.at_css(".tag").content.gsub!(/[a-zA-Z]/, '')
+      get_latest_github_release('electron', 'electron', opts)
     end
   end
 end

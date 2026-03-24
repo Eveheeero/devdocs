@@ -37,6 +37,7 @@ class App < Sinatra::Application
 
     require 'docs'
     Docs.generate_manifest
+    set :docs_aliases, Docs.aliases
 
     Dir[docs_path, root.join(assets_prefix, '*/')].each do |path|
       sprockets.append_path(path)
@@ -56,7 +57,6 @@ class App < Sinatra::Application
 
     SpritesCLI.new.invoke(:generate, [], :disable_optimization => true)
 
-    require 'active_support/per_thread_registry'
     require 'active_support/cache'
     sprockets.cache = ActiveSupport::Cache.lookup_store :file_store, root.join('tmp', 'cache', 'assets', environment.to_s)
   end
@@ -94,7 +94,7 @@ class App < Sinatra::Application
         ['/manifest.json',  { 'Cache-Control' => 'public, max-age=86400'  }]
       ]
 
-    sprockets.js_compressor = Uglifier.new output: { beautify: true, indent_level: 0 }
+    sprockets.js_compressor = Terser.new
     sprockets.css_compressor = :sass
 
     Sprockets::Helpers.configure do |config|
@@ -376,6 +376,8 @@ class App < Sinatra::Application
     'angular~1.3' => 'angularjs~1.3',
     'angular~1.2' => 'angularjs~1.2',
     'codeigniter~3.0' => 'codeigniter~3',
+    'pytorch~1' => 'pytorch~1.13',
+    'pytorch~2' => 'pytorch',
     'webpack~2' => 'webpack'
   }
 

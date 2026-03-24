@@ -24,12 +24,27 @@ module Docs
     HTML
 
     version do
-      self.release = '19.0.1'
+      self.release = '25.8.0'
       self.base_url = 'https://nodejs.org/api/'
     end
 
+    version '24 LTS' do
+      self.release = '24.14.0'
+      self.base_url = 'https://nodejs.org/dist/latest-v24.x/docs/api/'
+    end
+
+    version '22 LTS' do
+      self.release = '22.20.0'
+      self.base_url = 'https://nodejs.org/dist/latest-v22.x/docs/api/'
+    end
+
+    version '20 LTS' do
+      self.release = '20.19.5'
+      self.base_url = 'https://nodejs.org/dist/latest-v20.x/docs/api/'
+    end
+
     version '18 LTS' do
-      self.release = '18.12.1'
+      self.release = '18.18.0'
       self.base_url = 'https://nodejs.org/dist/latest-v18.x/docs/api/'
     end
 
@@ -74,8 +89,8 @@ module Docs
     end
 
     def get_latest_version(opts)
-      doc = fetch_doc('https://nodejs.org/en/', opts)
-      doc.at_css('#home-intro > .home-downloadblock:last-of-type > a')['data-version'][1..-1]
+      tags = get_github_tags('nodejs', 'node', opts)
+      tags[0]['name'][1..-1]
     end
   end
 end

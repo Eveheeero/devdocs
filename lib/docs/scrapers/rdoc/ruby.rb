@@ -27,7 +27,6 @@ module Docs
       syntax_rdoc.html
       extension_rdoc.html
       extension_ja_rdoc.html
-      Data.html
       English.html
       Fcntl.html
       Kconv.html
@@ -63,22 +62,35 @@ module Docs
       /\AXMP/]
 
     options[:attribution] = <<-HTML
-      Ruby Core &copy; 1993&ndash;2022 Yukihiro Matsumoto<br>
+      Ruby Core &copy; 1993&ndash;2025 Yukihiro Matsumoto<br>
       Licensed under the Ruby License.<br>
       Ruby Standard Library &copy; contributors<br>
       Licensed under their own licenses.
     HTML
 
-    version '3.2' do
-      self.release = '3.2.0'
+    version '4.0' do
+      self.release = '4.0.1'
+      self.root_path = 'index.html'
     end
-    
+
+    version '3.4' do
+      self.release = '3.4.7'
+    end
+
+    version '3.3' do
+      self.release = '3.3.0'
+    end
+
+    version '3.2' do
+      self.release = '3.2.2'
+    end
+
     version '3.1' do
-      self.release = '3.1.3'
+      self.release = '3.1.4'
     end
 
     version '3' do
-      self.release = '3.0.0'
+      self.release = '3.0.6'
     end
 
     version '2.7' do

@@ -24,7 +24,7 @@ module Docs
           lang = 'php' if lang == 'ci'|| lang == 'html+php'
           lang = 'markup' if lang == 'html+django'
           lang = 'bash' if lang == 'bash'
-          lang = 'python' if lang == 'default' || lang.start_with?('python') || lang.start_with?('ipython')
+          lang = 'python' if lang == 'default' || lang == 'pycon' || lang.start_with?('python') || lang.start_with?('ipython')
           pre['data-language'] = lang
           node.replace(pre)
         end
@@ -36,9 +36,11 @@ module Docs
           node.replace(pre)
         end
 
-        css('span[id]:empty').each do |node|
-          (node.next_element || node.previous_element)['id'] ||= node['id'] if node.next_element || node.previous_element
-          node.remove
+        unless context[:sphinx_keep_empty_ids]
+          css('span[id]:empty').each do |node|
+            (node.next_element || node.previous_element)['id'] ||= node['id'] if node.next_element || node.previous_element
+            node.remove
+          end
         end
 
         css('.section').each do |node|

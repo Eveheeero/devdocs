@@ -1,5 +1,5 @@
-/* PrismJS 1.29.0
-https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascript+bash+c+cpp+cmake+coffeescript+crystal+d+dart+diff+django+elixir+erlang+go+groovy+java+json+julia+kotlin+latex+lua+markdown+markup-templating+matlab+nginx+nim+nix+ocaml+perl+php+python+qml+r+jsx+ruby+rust+scss+scala+shell-session+sql+typescript+yaml+zig */
+/* PrismJS 1.30.0
+https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascript+bash+c+cpp+cmake+coffeescript+crystal+d+dart+diff+django+dot+elixir+erlang+go+groovy+java+json+julia+kotlin+latex+lua+markdown+markup-templating+matlab+nginx+nim+nix+ocaml+perl+php+python+qml+r+jsx+ruby+rust+scss+scala+shell-session+sql+tcl+typescript+yaml+zig */
 /// <reference lib="WebWorker"/>
 
 var _self = (typeof window !== 'undefined')
@@ -224,7 +224,7 @@ var Prism = (function (_self) {
 				if (typeof document === 'undefined') {
 					return null;
 				}
-				if ('currentScript' in document && 1 < 2 /* hack to trip TS' flow analysis */) {
+				if (document.currentScript && document.currentScript.tagName === 'SCRIPT' && 1 < 2 /* hack to trip TS' flow analysis */) {
 					return /** @type {any} */ (document.currentScript);
 				}
 
@@ -2929,6 +2929,83 @@ Prism.languages.insertBefore('d', 'function', {
 
 }(Prism));
 
+// https://www.graphviz.org/doc/info/lang.html
+
+(function (Prism) {
+
+	var ID = '(?:' + [
+		// an identifier
+		/[a-zA-Z_\x80-\uFFFF][\w\x80-\uFFFF]*/.source,
+		// a number
+		/-?(?:\.\d+|\d+(?:\.\d*)?)/.source,
+		// a double-quoted string
+		/"[^"\\]*(?:\\[\s\S][^"\\]*)*"/.source,
+		// HTML-like string
+		/<(?:[^<>]|(?!<!--)<(?:[^<>"']|"[^"]*"|'[^']*')+>|<!--(?:[^-]|-(?!->))*-->)*>/.source
+	].join('|') + ')';
+
+	var IDInside = {
+		'markup': {
+			pattern: /(^<)[\s\S]+(?=>$)/,
+			lookbehind: true,
+			alias: ['language-markup', 'language-html', 'language-xml'],
+			inside: Prism.languages.markup
+		}
+	};
+
+	/**
+	 * @param {string} source
+	 * @param {string} flags
+	 * @returns {RegExp}
+	 */
+	function withID(source, flags) {
+		return RegExp(source.replace(/<ID>/g, function () { return ID; }), flags);
+	}
+
+	Prism.languages.dot = {
+		'comment': {
+			pattern: /\/\/.*|\/\*[\s\S]*?\*\/|^#.*/m,
+			greedy: true
+		},
+		'graph-name': {
+			pattern: withID(/(\b(?:digraph|graph|subgraph)[ \t\r\n]+)<ID>/.source, 'i'),
+			lookbehind: true,
+			greedy: true,
+			alias: 'class-name',
+			inside: IDInside
+		},
+		'attr-value': {
+			pattern: withID(/(=[ \t\r\n]*)<ID>/.source),
+			lookbehind: true,
+			greedy: true,
+			inside: IDInside
+		},
+		'attr-name': {
+			pattern: withID(/([\[;, \t\r\n])<ID>(?=[ \t\r\n]*=)/.source),
+			lookbehind: true,
+			greedy: true,
+			inside: IDInside
+		},
+		'keyword': /\b(?:digraph|edge|graph|node|strict|subgraph)\b/i,
+		'compass-point': {
+			pattern: /(:[ \t\r\n]*)(?:[ewc_]|[ns][ew]?)(?![\w\x80-\uFFFF])/,
+			lookbehind: true,
+			alias: 'builtin'
+		},
+		'node': {
+			pattern: withID(/(^|[^-.\w\x80-\uFFFF\\])<ID>/.source),
+			lookbehind: true,
+			greedy: true,
+			inside: IDInside
+		},
+		'operator': /[=:]|-[->]/,
+		'punctuation': /[\[\]{};,]/
+	};
+
+	Prism.languages.gv = Prism.languages.dot;
+
+}(Prism));
+
 Prism.languages.elixir = {
 	'doc': {
 		pattern: /@(?:doc|moduledoc)\s+(?:("""|''')[\s\S]*?\1|("|')(?:\\(?:\r\n|[\s\S])|(?!\2)[^\\\r\n])*\2)/,
@@ -5323,6 +5400,53 @@ Prism.languages.sql = {
 	'number': /\b0x[\da-f]+\b|\b\d+(?:\.\d*)?|\B\.\d+\b/i,
 	'operator': /[-+*\/=%^~]|&&?|\|\|?|!=?|<(?:=>?|<|>)?|>[>=]?|\b(?:AND|BETWEEN|DIV|ILIKE|IN|IS|LIKE|NOT|OR|REGEXP|RLIKE|SOUNDS LIKE|XOR)\b/i,
 	'punctuation': /[;[\]()`,.]/
+};
+
+Prism.languages.tcl = {
+	'comment': {
+		pattern: /(^|[^\\])#.*/,
+		lookbehind: true
+	},
+	'string': {
+		pattern: /"(?:[^"\\\r\n]|\\(?:\r\n|[\s\S]))*"/,
+		greedy: true
+	},
+	'variable': [
+		{
+			pattern: /(\$)(?:::)?(?:[a-zA-Z0-9]+::)*\w+/,
+			lookbehind: true
+		},
+		{
+			pattern: /(\$)\{[^}]+\}/,
+			lookbehind: true
+		},
+		{
+			pattern: /(^[\t ]*set[ \t]+)(?:::)?(?:[a-zA-Z0-9]+::)*\w+/m,
+			lookbehind: true
+		}
+	],
+	'function': {
+		pattern: /(^[\t ]*proc[ \t]+)\S+/m,
+		lookbehind: true
+	},
+	'builtin': [
+		{
+			pattern: /(^[\t ]*)(?:break|class|continue|error|eval|exit|for|foreach|if|proc|return|switch|while)\b/m,
+			lookbehind: true
+		},
+		/\b(?:else|elseif)\b/
+	],
+	'scope': {
+		pattern: /(^[\t ]*)(?:global|upvar|variable)\b/m,
+		lookbehind: true,
+		alias: 'constant'
+	},
+	'keyword': {
+		pattern: /(^[\t ]*|\[)(?:Safe_Base|Tcl|after|append|apply|array|auto_(?:execok|import|load|mkindex|qualify|reset)|automkindex_old|bgerror|binary|catch|cd|chan|clock|close|concat|dde|dict|encoding|eof|exec|expr|fblocked|fconfigure|fcopy|file(?:event|name)?|flush|gets|glob|history|http|incr|info|interp|join|lappend|lassign|lindex|linsert|list|llength|load|lrange|lrepeat|lreplace|lreverse|lsearch|lset|lsort|math(?:func|op)|memory|msgcat|namespace|open|package|parray|pid|pkg_mkIndex|platform|puts|pwd|re_syntax|read|refchan|regexp|registry|regsub|rename|scan|seek|set|socket|source|split|string|subst|tcl(?:_endOfWord|_findLibrary|startOf(?:Next|Previous)Word|test|vars|wordBreak(?:After|Before))|tell|time|tm|trace|unknown|unload|unset|update|uplevel|vwait)\b/m,
+		lookbehind: true
+	},
+	'operator': /!=?|\*\*?|==|&&?|\|\|?|<[=<]?|>[=>]?|[-+~\/%?^]|\b(?:eq|in|ne|ni)\b/,
+	'punctuation': /[{}()\[\]]/
 };
 
 (function (Prism) {

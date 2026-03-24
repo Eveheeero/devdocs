@@ -4,21 +4,11 @@ This lists the docs that use `FileScraper` and instructions for building some of
 
 If you open a PR to update one of these docs, please add/fix the instructions.
 
-## C
-
-Download the HTML book from https://en.cppreference.com/w/Cppreference:Archives
-and copy `reference/en/c` from the ZIP file into `/path/to/devdocs/docs/c`.
-
-## C++
-
-Download the HTML book from https://en.cppreference.com/w/Cppreference:Archives
-and copy `reference/en/cpp` from the ZIP file into `/path/to/devdocs/docs/cpp`.
-
 ## Dart
 
 Click the “API docs” link under the “Stable channel” header on
 https://www.dartlang.org/tools/sdk/archive. Rename the expanded ZIP to `dart~2`
-and put it in `/path/to/devdocs/docs/`
+and put it in `docs/`
 
 Or run the following commands in your terminal:
 
@@ -51,12 +41,12 @@ bsdtar --extract --file - --directory=docs/django\~$VERSION/
 
 ## Elisp
 
-Go to https://www.gnu.org/software/emacs/manual/elisp.html, download the HTML tarball and extract its content in `/path/to/devdocs/docs/elisp` or run the following command:
+Go to https://www.gnu.org/software/emacs/manual/elisp.html, download the HTML tarball and extract its content in `docs/elisp` or run the following command:
 
 ```sh
-mkdir /path/to/devdocs/docs/elisp \
+mkdir docs/elisp \
 && curl curl https://www.gnu.org/software/emacs/manual/elisp.html_node.tar.gz | \
-tar --extract --gzip --strip-components=1 --directory=/path/to/devdocs/docs/elisp
+tar --extract --gzip --strip-components=1 --directory=docs/elisp
 ```
 
 ## Erlang
@@ -69,15 +59,21 @@ curl -L https://github.com/erlang/otp/releases/download/OTP-$RELEASE/otp_doc_htm
 bsdtar --extract --file - --directory=docs/erlang\~$VERSION/
 ```
 
+## es-toolkit
+
+```sh
+git clone https://github.com/toss/es-toolkit docs/es_toolkit
+```
+
 ## Gnu
 
 ### Bash
-Go to https://www.gnu.org/software/bash/manual/, download the HTML tar file (with one web page per node) and extract its content in `/path/to/devdocs/docs/bash` or run the following command:
+Go to https://www.gnu.org/software/bash/manual/, download the HTML tar file (with one web page per node) and extract its content in `docs/bash` or run the following command:
 
 ```sh
-mkdir /path/to/devdocs/docs/bash \
+mkdir docs/bash \
 && curl https://www.gnu.org/software/bash/manual/bash.html_node.tar.gz | \
-tar --extract --gzip --directory=/path/to/devdocs/docs/bash
+tar --extract --gzip --directory=docs/bash
 ```
 
 ### GCC
@@ -105,12 +101,12 @@ tar --extract --gzip --strip-components=1 --directory=docs/gnu_fortran~$VERSION
 ```
 
 ## GNU Make
-Go to https://www.gnu.org/software/make/manual/, download the HTML tarball and extract its content in `/path/to/devdocs/docs/gnu_make` or run the following command:
+Go to https://www.gnu.org/software/make/manual/, download the HTML tarball and extract its content in `docs/gnu_make` or run the following command:
 
 ```sh
-mkdir /path/to/devdocs/docs/gnu_make \
+mkdir docs/gnu_make \
 && curl https://www.gnu.org/software/make/manual/make.html_node.tar.gz | \
-tar --extract --gzip --strip-components=1 --directory=/path/to/devdocs/docs/gnu_make
+tar --extract --gzip --strip-components=1 --directory=docs/gnu_make
 ```
 
 ## Gnuplot
@@ -152,6 +148,13 @@ $GS = '/usr/local/opt/ghostscript/bin/gs';	# GhostScript
 ```
 </details>
 
+## Man
+
+```sh
+wget --recursive --no-parent https://man7.org/linux/man-pages/
+mv man7.org/linux/man-pages/ docs/man/
+```
+
 ## NumPy
 
 ```sh
@@ -160,15 +163,13 @@ curl https://numpy.org/doc/$VERSION/numpy-html.zip | \
 bsdtar --extract --file=- --directory=docs/numpy~$VERSION/
 ```
 
-## OCaml
-
-Download from https://www.ocaml.org/docs/ the HTML reference:
-https://v2.ocaml.org/releases/4.14/ocaml-4.14-refman-html.tar.gz
-and extract it as `/path/to/devdocs/docs/ocaml`:
+## OpenGL
 
 ```sh
-curl https://v2.ocaml.org/releases/$VERSION/ocaml-$VERSION-refman-html.tar.gz | \
-tar xz --transform 's/htmlman/ocaml/' --directory docs/
+cd docs/
+git clone https://github.com/KhronosGroup/OpenGL-Refpages.git
+ln -s OpenGL-Refpages/gl4/html/ opengl~4
+ln -s OpenGL-Refpages/gl2.1/xhtml/ opengl~2.1
 ```
 
 ## OpenJDK
@@ -176,11 +177,11 @@ Search 'Openjdk' in https://www.debian.org/distrib/packages, find the `openjdk-$
 download it, extract it with `dpkg -x $PACKAGE ./` and move `./usr/share/doc/openjdk-16-jre-headless/api/`
 to `path/to/devdocs/docs/openjdk~$VERSION`
 
-```
-curl http://ftp.at.debian.org/debian/pool/main/o/openjdk-19/openjdk-19-doc_19+36-2_all.deb &&
-tar xf openjdk-19-doc_19+36-2_all.deb
+```sh
+curl -O http://ftp.at.debian.org/debian/pool/main/o/openjdk-25/openjdk-25-doc_25+36-1_all.deb
+tar xf openjdk-25-doc_25+36-1_all.deb
 tar xf data.tar.xz
-mv ./usr/share/doc/openjdk-19-jre-headless/api/ path/to/devdocs/docs/openjdk~$VERSION
+mv ./usr/share/doc/openjdk-25-jre-headless/api/ docs/openjdk~25
 ```
 
 If you use or have access to a Debian-based GNU/Linux distribution you can run the following command:
@@ -188,14 +189,17 @@ If you use or have access to a Debian-based GNU/Linux distribution you can run t
 apt download openjdk-$VERSION-doc
 dpkg -x $PACKAGE ./
 # previous command makes a directory called 'usr' in the current directory
-mv ./usr/share/doc/openjdk-16-jre-headless/api/ path/to/devdocs/docs/openjdk~$VERSION
+mv ./usr/share/doc/openjdk-16-jre-headless/api/ docs/openjdk~$VERSION
 ```
 
 ## Pandas
 
+From the home directory; `devdocs`, execute below:
+
 ```sh
-curl https://pandas.pydata.org/docs/pandas.zip | bsdtar --extract --file - --directory=docs/pandas~1
+curl https://pandas.pydata.org/docs/pandas.zip -o tmp.zip && unzip tmp.zip -d docs/pandas~2 && rm tmp.zip
 ```
+
 
 ## PHP
 Click the link under the "Many HTML files" column on https://www.php.net/download-docs.php, extract the tarball, change its name to `php` and put it in `docs/`.
@@ -203,8 +207,7 @@ Click the link under the "Many HTML files" column on https://www.php.net/downloa
 Or run the following commands in your terminal:
 
 ```sh
-curl https://www.php.net/distributions/manual/php_manual_en.tar.gz > php.tar; \
-tar -xf php.tar; mv php-chunked-xhtml/ docs/php/
+curl https://www.php.net/distributions/manual/php_manual_en.tar.gz | tar xz; mv php-chunked-xhtml/ docs/php/
 ```
 ## Python 3.6+
 
@@ -225,8 +228,15 @@ tar xj --strip-components=1
 ```
 
 ## R
+
 ```bash
-DEVDOCSROOT=/path/to/devdocs/docs/r
+sudo dnf install bzip2-devel
+sudo dnf install gcc-gfortran
+sudo dnf install libcurl-devel
+sudo dnf install texinfo
+sudo dnf install xz-devel
+
+DEVDOCSROOT=docs/r
 RLATEST=https://cran.r-project.org/src/base/R-latest.tar.gz # or /R-${VERSION::1}/R-$VERSION.tar.gz
 
 RSOURCEDIR=${TMPDIR:-/tmp}/R/latest
@@ -235,7 +245,7 @@ mkdir -p "$RSOURCEDIR" "$RBUILDDIR" "$DEVDOCSROOT"
 
 # Download, configure, and build with static HTML pages
 curl "$RLATEST" | tar -C "$RSOURCEDIR" -xzf - --strip-components=1
-(cd "$RBUILDDIR" && "$RSOURCEDIR/configure" --enable-prebuilt-html --with-recommended-packages --disable-byte-compiled-packages --disable-shared --disable-java)
+(cd "$RBUILDDIR" && "$RSOURCEDIR/configure" --enable-prebuilt-html --with-recommended-packages --disable-byte-compiled-packages --disable-shared --disable-java --with-readline=no --with-x=no)
 make _R_HELP_LINKS_TO_TOPICS_=FALSE -C "$RBUILDDIR"
 
 # Export all html documentation built − global, and per-package
@@ -250,13 +260,24 @@ done
 
 ### Nokogiri
 ### Ruby / Minitest
+
+```sh
+git clone https://github.com/minitest/minitest
+cd minitest/
+echo -e "source 'https://rubygems.org'\n\ngem 'hoe'\ngem 'rdoc', '< 7'" > Gemfile
+bundle install
+bundle exec rake docs
+cp -r docs $DEVDOCS/docs/minitest
+```
+
 ### Ruby on Rails
-* Download a release at https://github.com/rails/rails/releases or clone https://github.com/rails/rails.git (checkout to the branch of the rails' version that is going to be scraped)
-* Open "railties/lib/rails/api/task.rb" and comment out any code related to sdoc ("configure_sdoc")
-* Run "bundle install --without db && bundle exec rake rdoc" (in the Rails directory)
-* Run "cd guides && bundle exec rake guides:generate:html"
-* Copy the "guides/output" directory to "html/guides"
-* Copy the "html" directory to "docs/rails~[version]"
+* Run `git clone --branch v$RELEASE --depth 7 https://github.com/rails/rails.git && cd rails`
+* Open `railties/lib/rails/api/task.rb` and comment out any code related to sdoc (`configure_sdoc`)
+* Run `bundle config set --local without 'db job'` (in the Rails directory)
+* Run `bundle install && bundle exec rake rdoc` (in the Rails directory)
+* Run `cd guides && bundle exec rake guides:generate:html && cd ..`
+* Run `cp -r guides/output html/guides`
+* Run `cp -r html $DEVDOCS/docs/rails~$VERSION`
 
 ### Ruby
 Download the tarball of Ruby from https://www.ruby-lang.org/en/downloads/, extract it, run
@@ -279,8 +300,23 @@ See `lib/docs/scrapers/scala.rb`
 ## SQLite
 
 Download the docs from https://sqlite.org/download.html, unzip it, and rename
-it to `/path/to/devdocs/docs/sqlite`
+it to `docs/sqlite`
 
 ```sh
 curl https://sqlite.org/2022/sqlite-doc-3400000.zip | bsdtar --extract --file - --directory=docs/sqlite/ --strip-components=1
+```
+
+## Three.js
+Download the docs from https://github.com/mrdoob/three.js/tree/dev/files or run the following commands in your terminal:
+Make sure to set the version per the release tag (e.g. r160). Note that the r prefix is already included, only the version number is needed.
+
+```sh
+curl https://codeload.github.com/mrdoob/three.js/tar.gz/refs/tags/r${VERSION} > threejs.tar.gz
+tar -xzf threejs.tar.gz
+mkdir -p docs/threejs~${VERSION}
+mv three.js-r${VERSION}/list.json tmp/list.json
+mv three.js-r${VERSION}/docs/* docs/threejs~${VERSION}/
+
+rm -rf three.js-r${VERSION}/
+rm threejs.tar.gz
 ```
